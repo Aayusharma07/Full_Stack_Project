@@ -1,14 +1,35 @@
-import express, {Request, Response} from "express"
+import express from 'express';
+import bodyParser from 'body-parser';
+import config from './config/config';
+import routes from './routes/v1';
+import cors from 'cors';
+import 'dotenv/config';
 const app = express();
 
+// middleware
+// enable cors
+app.use(cors());
+app.options('*', cors());
 
-app.get("/",(req: Request, res: Response)=>{
-  res.send("Hello World")
-})
+// parse json request body
+app.use(bodyParser.json());
 
-const port = 8000;
+// parse urlencoded request body
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.listen(port, ()=>{
+//Routes
+app.use('/v1', routes);
+
+// bad route error handler
+app.all('/v1/*', () => {
+  throw new Error('Page does not exist');
+});
+
+// Port
+const port = config.port || 3000;
+
+// Server
+app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`Server is running on port ${port}`);
-})
-
+});
