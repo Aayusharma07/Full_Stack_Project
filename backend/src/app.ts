@@ -18,10 +18,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Routes
-app.use('/v1', routes);
+app.use('/api', routes);
 
 // bad route error handler
-app.all('/v1/*', () => {
+app.all('/api/v1/*', () => {
   throw new Error('Page does not exist');
 });
 
