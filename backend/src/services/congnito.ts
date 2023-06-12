@@ -1,12 +1,6 @@
 import config from '../config/config';
-import AWS from 'aws-sdk';
+import AWS from '../config/awsConfig';
 import crypto from 'crypto';
-
-AWS.config.update({
-  accessKeyId: config.accessKey,
-  secretAccessKey: config.secretAccessKey,
-  region: config.region,
-});
 
 const cognitoIdentity = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
 
@@ -73,8 +67,8 @@ export const confirmRegistration = async (username: string, code: string) => {
 
 export const signInUser = async (username: string, password: string) => {
   const params = {
-    AuthFlow: 'USER_PASSWORD_AUTH' /* required */,
-    ClientId: config.clientId /* required */,
+    AuthFlow: config.cognitoAuthFlow,
+    ClientId: config.clientId,
     AuthParameters: {
       USERNAME: username,
       PASSWORD: password,

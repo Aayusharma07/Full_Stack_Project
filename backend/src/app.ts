@@ -20,11 +20,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use('/api', routes);
 
-// bad route error handler
-app.all('/api/v1/*', () => {
-  throw new Error('Page does not exist');
-});
-
 // Port
 const port = config.port || 3000;
 
