@@ -15,6 +15,7 @@ const envVariablesSchema = joi
     SECRET_HASH: joi.string().required(),
     ACCESS_KEY: joi.string().required(),
     SECRET_ACCESS_KEY: joi.string().required(),
+    COGNITO_AUTH_FLOW: joi.string().required(),
   })
   .unknown();
 
@@ -33,6 +34,7 @@ const config = {
   secretHash: envVars.SECRET_HASH,
   accessKey: envVars.ACCESS_KEY,
   secretAccessKey: envVars.SECRET_ACCESS_KEY,
+  cognitoAuthFlow: envVars.COGNITO_AUTH_FLOW,
 };
 
 export default config;
