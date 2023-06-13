@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { saveToDynamoDB } from '../services/dynamodb';
+import { getAllData, saveToDynamoDB } from '../services/dynamodb';
 
 interface Data {
   id: string;
@@ -34,5 +34,18 @@ export const createBlog = async (req: Request, res: Response) => {
       message: 'Something Went Wrong',
       error: err,
     });
+  }
+};
+
+export const getAllBlogs = async (req: Request, res: Response) => {
+  try {
+    const data = await getAllData();
+    res.send({
+      status: res.statusCode,
+      message: 'Data retrieved successfully!',
+      data: data,
+    });
+  } catch (e) {
+    res.send("Couldn't complete the request now. Try again later!");
   }
 };
