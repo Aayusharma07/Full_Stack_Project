@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import config from './config/config';
-import routes from './routes/v1';
+import routes from './routes/index';
 import cors from 'cors';
 import 'dotenv/config';
 const app = express();

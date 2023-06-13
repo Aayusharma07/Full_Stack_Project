@@ -16,6 +16,7 @@ const envVariablesSchema = joi
     ACCESS_KEY: joi.string().required(),
     SECRET_ACCESS_KEY: joi.string().required(),
     COGNITO_AUTH_FLOW: joi.string().required(),
+    DYNAMO_DB_TABLE: joi.string().required(),
   })
   .unknown();
 
@@ -35,6 +36,7 @@ const config = {
   accessKey: envVars.ACCESS_KEY,
   secretAccessKey: envVars.SECRET_ACCESS_KEY,
   cognitoAuthFlow: envVars.COGNITO_AUTH_FLOW,
+  dynamoDBTable: envVars.DYNAMO_DB_TABLE,
 };
 
 export default config;
