@@ -1,6 +1,7 @@
 import config from '../config/config';
 import AWS from '../config/awsConfig';
 import crypto from 'crypto';
+import { NextFunction, Request, Response } from 'express';
 
 const cognitoIdentity = new AWS.CognitoIdentityServiceProvider({ apiVersion: '2016-04-18' });
 
@@ -88,4 +89,19 @@ export const signInUser = async (username: string, password: string) => {
       }
     });
   });
+};
+
+export const authenticateMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ error: 'Authorization header missing' });
+  }
+
+  // Verify the token using the Cognito service
+  try {
+    await cognitoIdentity.getUser({ AccessToken: token }).promise();
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
 };

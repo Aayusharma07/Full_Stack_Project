@@ -17,8 +17,8 @@ export const confirmSignUp = async (req: Request, res: Response) => {
     const response = await confirmRegistration(username, code);
     res.send({
       status: 200,
-      message: "Registered Successfully",
-      code: response
+      message: 'Registered Successfully',
+      code: response,
     });
   } catch (err) {
     res.send(err);
