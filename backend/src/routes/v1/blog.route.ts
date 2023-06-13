@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import { createBlog, getAllBlogs } from '../../controllers/blog.controller';
+import { blogController } from '../../controllers';
 const router: Router = express.Router();
 
-router.post('/create', createBlog);
-router.get('/alldata', getAllBlogs);
+router.post('/create', blogController.createBlog);
+router.get('/alldata', blogController.getAllBlogs);
 
 export default router;
