@@ -37,3 +37,42 @@ export const getAllData = async () => {
     });
   });
 };
+
+export const getDataByID = (data: string) => {
+  const params = {
+    TableName: config.dynamoDBTable,
+    Key: {
+      id: data,
+    },
+  };
+  return new Promise((resolve, reject) => {
+    db.get(params, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      if (result) {
+        resolve(result);
+      }
+    });
+  });
+};
+
+
+export const deleteDataById = async(data: string) => {
+  const params = {
+    TableName: config.dynamoDBTable,
+    Key: {
+      id: data,
+    },
+  };
+  return new Promise((resolve, reject) => {
+    db.delete(params, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      if (result) {
+        resolve(result);
+      }
+    });
+  });
+}
