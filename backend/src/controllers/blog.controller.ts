@@ -23,8 +23,16 @@ export const createBlog = async (req: Request, res: Response) => {
       timestamp: timestamp,
     };
     const response = await saveToDynamoDB(data);
-    res.status(200).send(response);
+    res.status(200).send({
+      status: 200,
+      message: 'Saved successfully',
+      data: response,
+    });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({
+      status: 400,
+      message: 'Something Went Wrong',
+      error: err,
+    });
   }
 };
